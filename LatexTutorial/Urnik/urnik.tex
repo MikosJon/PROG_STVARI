@@ -4,11 +4,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[slovene]{babel}
-
+\usepackage{amsmath}
 
 \title{Izdelava urnikov}
 \author{Nejc Širovnik}
-\date{15. 10. 2017}
+\date{15.\ 10.\ 2017}
 
 \begin{document}
 
@@ -17,7 +17,8 @@
 \begin{abstract}
 V članku so predstavljeni nekateri postopki za avtomatsko izdelavo urnikov. Opisani so
 potrebni vhodni podatki, naštete so omejitve, ki jih je potrebno upoštevati pri izdelavi
-urnikov, predstavljena je tudi metoda merjenja kakovosti izdelanega urnika.
+urnikov, predstavljena je tudi metoda merjenja kakovosti izdelanega urnika. Med postopki
+za izdelavo urnikov najdemo požrešno metodo in optimizacijske metode.
 \end{abstract}
 
 \section{Program za izdelavo urnika}
@@ -29,7 +30,7 @@ prav začel? Zakaj nam vsaj v petek niso malo popustili? Kdo je sploh lahko izde
 takšen urnik?
 
 To so vprašanja, na katera seveda nikoli nismo dobili odgovora, čeprav je le-ta na zadnje
-vprašanje več kot očiten - izdelala ga je oseba, ki so ji to delo naprtili. Naprtili je
+vprašanje več kot očiten -- izdelala ga je oseba, ki so ji to delo naprtili. Naprtili je
 zelo primerna beseda, saj gre za zahtevno opravilo, ki izdelovalcu urnikov nemalokrat
 pusti ogromno sivih las. Ne bi se rad postavil v kožo ubožca, ki konča z izdelavo urnika,
 nakar ves zgrožen ugotovi, da je spregledal prekrivanje dveh šolskih ur, kar pomeni, da
@@ -70,7 +71,7 @@ matematika.
    </predmet>
 </profesor>
 \end{verbatim}
-
+\noindent
 Hierarhija značk omogoča enostavno vnašanje podatkov, hkrati pa poskrbi za preglednost.
 Še enostavnejše je dostopanje do posameznih podatkov, saj večina programskih jezikov že
 vsebuje metode za delo z XML datotekami.
@@ -78,31 +79,33 @@ vsebuje metode za delo z XML datotekami.
 Pri objektno orientiranih programskih jezikih (Delphi, C++, Java) vse vhodne podatke
 opišemo s posameznimi razredi. Poglejmo, katere razrede je smiselno implementirati ter
 katere podatke naj vsebujejo.
-
-   Razred Profesor vsebuje osebne podatke profesorja (ime in priimek) ter
-   podatke o predmetih, ki jih predava. Hkrati moramo za vsako uro v tednu vedeti, če
-   je profesor takrat že zaseden, da mu slučajno ne bi dodelili dveh predavanj v istem
-   časovnem terminu. To je najlažje preverjati s pomočjo tabele zasedenosti, ki je
-   podrobneje opisana na koncu poglavja.
-
-   Razred Skupina predstavlja skupino študentov. Kot podatke torej potrebujemo
-   smer skupine (npr. pedagoška matematika) ter število študentov v njej. Podobno kot pri
-   profesorjih, tudi tukaj potrebujemo tabelo zasedenosti.
-
-   Razred Predavalnica nosi podatke o kapaciteti predavalnice, njeno oznako
-   ter podatke o zasedenosti, ki so predstavljeni s tabelo.
-
-   Razred Predmet vsebuje podatke o posameznih predmetih. Kot podatke tega
-   objekta je smiselno navesti ime predmeta ter tedensko število ur njegove izvedbe.
-   Zanima nas tudi, katerim skupinam je predmet namenjen, ter v katerem semestru se bo
-   predaval.
-
+\begin{itemize}
+   \item
+      Razred \emph{Profesor} vsebuje osebne podatke profesorja (ime in priimek) ter
+      podatke o predmetih, ki jih predava. Hkrati moramo za vsako uro v tednu vedeti, če
+      je profesor takrat že zaseden, da mu slučajno ne bi dodelili dveh predavanj v istem
+      časovnem terminu. To je najlažje preverjati s pomočjo tabele zasedenosti, ki je
+      podrobneje opisana na koncu poglavja.
+   \item
+      Razred \emph{Skupina} predstavlja skupino študentov. Kot podatke torej potrebujemo
+      smer skupine (npr.\ pedagoška matematika) ter število študentov v njej. Podobno kot pri
+      profesorjih, tudi tukaj potrebujemo tabelo zasedenosti.
+   \item
+      Razred \emph{Predavalnica} nosi podatke o kapaciteti predavalnice, njeno oznako
+      ter podatke o zasedenosti, ki so predstavljeni s tabelo.
+   \item
+      Razred \emph{Predmet} vsebuje podatke o posameznih predmetih. Kot podatke tega
+      objekta je smiselno navesti ime predmeta ter tedensko število ur njegove izvedbe.
+      Zanima nas tudi, katerim skupinam je predmet namenjen, ter v katerem semestru se bo
+      predaval.
+\end{itemize}
+\noindent
 Kar pri treh razredih je kot podatek navedena tabela zasedenosti, zato si jo podrobneje
 oglejmo. Vsako tabelo določata njena velikost ter tip vrednosti. Naslednji izračun nam
 poda velikost tabele:
-
-   velikostTabele = številoUrNaDan številoDelovnihDni
-
+\[
+   \text{velikostTabele} = \text{številoUrNaDan} \cdot \text{številoDelovnihDni}
+\]
 Če bi predpostavili, da študijski dan traja od sedme ure zjutraj do osmih zvečer in da
 imamo pet delovnih dni, je velikost naše tabele 65 polj. Velikost te tabele torej pove,
 koliko ur na teden obravnavamo. Ker se šolski tedni periodično ponavljajo, je seveda
@@ -111,8 +114,8 @@ dovolj, če podamo zasedenost le za en teden.
 Tip vrednosti tabele ni striktno določen. Tako bi nekateri programerji uporabili
 celoštevilsko tabelo, kjer bi vrednost 1 pomenila, da je oseba zasedena, vrednost 0
 pa bi predstavljala njeno dosegljivost. Podobno bi postopali, če bi izbrali logični
-tip (npr. bool v C++), kjer bi vrednost true predstavljala
-dosegljivost, false pa zasedenost.
+tip (npr.\ \texttt{bool} v C++), kjer bi vrednost \texttt{true} predstavljala
+dosegljivost, \texttt{false} pa zasedenost.
 
 \subsection{Omejitve}
 
@@ -125,23 +128,24 @@ pa je tisto, kar odlikuje dober urnik.
 
 Verjetno še niste videli profesorja, ki vsakih pet minut teče iz ene predavalnice v drugo,
 ker so mu izdelalovalci urnika dodelili dve predavanji v istem časovnem terminu. Razlog
-je preprost - vsak urnik mora biti izdelan tako, da zadošča vsem strogim omejitvam.
+je preprost -- vsak urnik mora biti izdelan tako, da zadošča vsem strogim omejitvam.
 Poglejmo si nekaj omejitev, ki jih urnik ne sme kršiti:
-
-   V urnik moramo razdeliti vse ure vseh predmetov.
-   Noben profesor ne sme imeti več predavanj hkrati.
-   Nobena skupina ne sme imeti več predavanj hkrati.
-   Nobena predavalnica ne sme biti dodeljena večim predavanjem hkrati.
-   Predavalnica mora imeti zadostno kapaciteto.
-   Predavanja posebne vrste (npr. vaje iz računalništva) se morajo izvajati v ustrezni predavalnici.
-   Urnik mora zadoščati zastavljenemu časovnemu okvirju (npr. od sedmih zjutraj do osmih zvečer).
-
+\begin{itemize}
+   \item V urnik moramo razdeliti vse ure vseh predmetov.
+   \item Noben profesor ne sme imeti več predavanj hkrati.
+   \item Nobena skupina ne sme imeti več predavanj hkrati.
+   \item Nobena predavalnica ne sme biti dodeljena večim predavanjem hkrati.
+   \item Predavalnica mora imeti zadostno kapaciteto.
+   \item Predavanja posebne vrste (npr.\ vaje iz računalništva) se morajo izvajati v ustrezni predavalnici.
+   \item Urnik mora zadoščati zastavljenemu časovnemu okvirju (npr.\ od sedmih zjutraj do osmih zvečer).
+\end{itemize}
+\noindent
 Urnik, ki zadošča vsem strogim omejitvam, imenujemo zadosten urnik. Zadostni urnik tako ne
 krši nobenega izmed zgoraj naštetih načel, a še zdaleč ne ustreza merilom kakovostnega urnika.
 
 Algoritem je najbolje implementirati tako, da do kršenja strogih omejitev sploh ne more priti.
 Tabela zasedenosti je dober primer pametne implementacije, saj tako že v osnovi  preprečujemo
-dodeljevanje t.i. prekrivanj. Če želi algoritem dodeliti predavanje določeni predavalnici,
+dodeljevanje t.i.\ prekrivanj. Če želi algoritem dodeliti predavanje določeni predavalnici,
 mora najprej v tabeli zasedenosti preveriti, če je v tistem terminu le-ta še na voljo,
 sicer se vstavljanje ne izvede.
 
@@ -150,14 +154,15 @@ sicer se vstavljanje ne izvede.
 V splošnem ne zahtevamo, da urnik zadošča vsem šibkim omejitvam, ker je to praktično neizvedljivo.
 Resda pa so prav šibke omejitve tiste, ki določajo kakovost urnika, in dober algoritem bo
 poskrbel, da se bo zadostilo večini le-teh. Naštejmo nekaj izmed njih:
-
-   Urnik naj vsebuje čim manj prostih ur za profesorje in študente.
-   Študentje naj se čim manj selijo iz predavalnic.
-   Predmet z veliko urami naj bo enakomerno porazdeljen čez celotno periodo (teden).
-   Predavanja naj se izvajajo ob urah, ki so najugodnejše za poučevanje.
-   V petek naj se študentom dodeli čim manj predavanj.
-   Študentom se naj v času kosila dodeli prosta ura.
-
+\begin{itemize}
+   \item Urnik naj vsebuje čim manj prostih ur za profesorje in študente.
+   \item Študentje naj se čim manj selijo iz predavalnic.
+   \item Predmet z veliko urami naj bo enakomerno porazdeljen čez celotno periodo (teden).
+   \item Predavanja naj se izvajajo ob urah, ki so najugodnejše za poučevanje.
+   \item V petek naj se študentom dodeli čim manj predavanj.
+   \item Študentom se naj v času kosila dodeli prosta ura.
+\end{itemize}
+\noindent
 Obstaja še mnogo drugih šibkih omejitev, ki se jim je smiselno posvetiti. Nikomur najbrž ne
 bi bilo preveč všeč, če bi uram športne vzgoje sledila še vrsta predavanj, saj bi tako
 prepoteni in izčrpani študentje težko sledili tempu pouka.
@@ -190,16 +195,18 @@ sprejet s strani večine, pa bi se povečala.
 
 Kot zanimivost naj omenimo, da se nekateri programerji odločajo tudi za utežitev strogih
 omejitev s to razliko, da so vrednosti teh uteži izjemno velike, zato se bo algoritem
-(skoraj) vedno odločil, da jih ne bo prekršil. Tak način uteževanja pride v poštev
+(skoraj) vedno ``odločil'', da jih ne bo prekršil. Tak način uteževanja pride v poštev
 takrat, ko algoritem v osnovi ne zadosti strogim omejitvam urnika.
 
 Ko enkrat ustrezno nastavimo vrednosti uteži, je treba ugotoviti, kako bomo postopali
 v nadaljevanju. Algoritem za izdelavo urnikov je najbolje zasnovati tako, da po vsaki
 spremembi izmeri njegovo kakovost. Tako moramo na vsakem koraku ugotavljati, katere
-omejitve so bile kršene ter kolikokrat se kršitev pojavi. S kn označimo število
-kršitev omejitve n, z un pa njeno utež. Z naslednjo formulo izračunamo
+omejitve so bile kršene ter kolikokrat se kršitev pojavi. S $k_n$ označimo število
+kršitev omejitve $n$, z $u_n$ pa njeno utež. Z naslednjo formulo izračunamo
 kakovost urnika:
-
+\[
+   k_1 \cdot u_1 + k_2 \cdot u_2 + \ldots + k_{n-1} \cdot u_{n-1} + k_n \cdot u_n   
+\]
 Nižja vrednost formule pomeni kakovostnejši urnik, izračunamo pa jo na vsakem koraku.
 Korak pri izdelavi urnika predstavlja eno izmed operacij nad njim (označuje njegovo
 spremembo).
@@ -219,8 +226,8 @@ nato iz njih izdela celovit urnik. Te vhodne podatke smo si skupaj s strogimi in
 omejitvami že podrobneje ogledali v prvem delu, tako da se lahko tokrat osredotočimo na
 osrčje programa.
 
-Za lažjo ilustracijo bi lahko potegnili kar nekaj vzporednic med programiranjem in - ne
-boste verjeli - kuhanjem. Za kuhanje potrebujemo recept, ki je sestavljen iz dveh delov.
+Za lažjo ilustracijo bi lahko potegnili kar nekaj vzporednic med programiranjem in -- ne
+boste verjeli -- kuhanjem. Za kuhanje potrebujemo recept, ki je sestavljen iz dveh delov.
 Prvi del predstavljajo sestavine, ki jih potrebujemo za kuhanje, glavni del pa predstavlja
 postopek, kako iz teh sestavin pripraviti okusno kosilo. Postopki kuhe se med seboj
 razlikujejo in nekateri pripeljejo do nekoliko slastnejšega obroka kot drugi.
@@ -240,7 +247,7 @@ kateri predavalnici se bo izvajalo.
 
 \subsection{Požrešna metoda}
 
-Požrešna metoda je ena izmed strategij, s katerimi lahko rešujemo optimizacijske probleme -
+Požrešna metoda je ena izmed strategij, s katerimi lahko rešujemo optimizacijske probleme --
 to pomeni, da za dani problem iščemo najboljšo (optimalno) rešitev. Metoda na vsakem koraku
 izmed vseh možnih rešitev izbere  tisto, ki daje (trenutno) največji dobiček oziroma najbolj
 poveča vrednost kriterijske funkcije.
@@ -255,7 +262,7 @@ Znano je, da požrešna metoda pri nekaterih problemih odpove, je pa vseeno zelo
 tehnika za iskanje rešitev, ko ne zahtevamo njihove optimalnosti. Urnik, ki ga dobimo s
 pomočjo požrešne metode, je lahko namreč še vedno za nekaj nivojev boljši od ročno izdelanega.
 Naslednje vrstice bodo pojasnile, kako implementirati postopek požrešne metode za primer urnika.
-
+\begin{verbatim}
 (1) Sprehod po vseh predmetih.
 {
    (2) Sprehod po vseh predavalnicah.
@@ -265,32 +272,33 @@ Naslednje vrstice bodo pojasnile, kako implementirati postopek požrešne metode
    }
    (5) Vstavljanje srečanja v urnik.
 }
-
+\end{verbatim}
 Zgoraj predstavljena shema je le grob opis postopka, ki ga nad urnikom izvaja požrešna metoda,
 zato si je smiselno podrobneje ogledati posamezne korake.
-
-   Z zanko se sprehodimo po vektorju vseh predmetov. Predmet na i-tem koraku
-   označimo s predmeti.
-
-   Naslednja vgnezdena zanka nas popelje po vseh predavalnicah. Predavalnico na
-   j-tem koraku označimo s predavalnicaj.
-
-   Za vse proste termine predavalnicej izračunamo ceno vstavljanja
-   srečanjai, ki ga sestavlja predmeti, profesor, ki ta predmet predava,
-   ter skupina, kateri je predmet namenjen.
-
-   Če je trenutna cena boljša od najboljše dosedanje, potem najboljša dosedanja
-   dobi vrednost trenutne. Hkrati si zapomnimo, za kateri termin smo izračunali ceno
-   vstavljanja, da bomo predmeti na koncu vstavili v termin z najboljšo
-   ceno vstavljanja.
-
-   Ko preverimo vse proste termine vseh predavalnic, vstavimo srečanjei
-   v termin z najboljšo ceno.
-
-   Sedaj se ponovno vrnemo na začetek in pogledamo najugodnejši termin za naslednji
-   predmet. Postopek ponavljamo, dokler se zunanja zanka, ki se sprehaja po vseh predmetih,
-   ne zaključi. S tem smo namreč v urnik vstavili vse predmete.
-
+\begin{enumerate}
+   \item
+      Z zanko se sprehodimo po vektorju vseh predmetov. Predmet na $i$-tem koraku
+      označimo s $\text{predmet}_i$.
+   \item
+      Naslednja vgnezdena zanka nas popelje po vseh predavalnicah. Predavalnico na
+      $j$-tem koraku označimo s $\text{predavalnica}_j$.
+   \item
+      Za vse proste termine predavalnicej izračunamo ceno vstavljanja
+      $\text{srečanja}_i$, ki ga sestavlja $\text{predmet}_i$, profesor, ki ta predmet predava,
+      ter skupina, kateri je predmet namenjen.
+   \item
+      Če je trenutna cena boljša od najboljše dosedanje, potem najboljša dosedanja
+      dobi vrednost trenutne. Hkrati si zapomnimo, za kateri termin smo izračunali ceno
+      vstavljanja, da bomo $\text{predmet}_i$ na koncu vstavili v termin z najboljšo
+      ceno vstavljanja.
+   \item
+      Ko preverimo vse proste termine vseh predavalnic, vstavimo $\text{srečanje}_i$
+      v termin z najboljšo ceno.
+   \item
+      Sedaj se ponovno vrnemo na začetek in pogledamo najugodnejši termin za naslednji
+      predmet. Postopek ponavljamo, dokler se zunanja zanka, ki se sprehaja po vseh predmetih,
+      ne zaključi. S tem smo namreč v urnik vstavili vse predmete.
+\end{enumerate}
 \subsection{Optimizacijske metode}
 
 Optimizacijske metode se že desetletja uporabljajo za reševanje optimizacijskih problemov.
@@ -300,18 +308,18 @@ naraščajoča zmogljivost procesorjev le voda na njihov mlin, saj tako lahko v 
 so lokalni ali globalni optimumi.
 
 Če želimo spoznati optimizacijske metode, se moramo najprej seznaniti z dvema pojmoma.
-Operacija je vsaka sprememba oziroma poseg v urnik med izvajanjem optimizacije.
+\emph{Operacija} je vsaka sprememba oziroma poseg v urnik med izvajanjem optimizacije.
 Na primeru urnika si oglejmo, katere so smiselne operacije:
-
-   Vstavljanje srečanja v urnik.
-   Brisanje srečanja iz urnika.
-   Zamenjava dveh srečanj v urnik.
-
-Okolica operacije je množica vseh možnih sprememb, ki jih lahko s to operacijo
+\begin{itemize}
+   \item \emph{Vstavljanje} srečanja v urnik.
+   \item \emph{Brisanje} srečanja iz urnika.
+   \item \emph{Zamenjava} dveh srečanj v urnik.
+\end{itemize}
+\emph{Okolica} operacije je množica vseh možnih sprememb, ki jih lahko s to operacijo
 opravimo na nekem koraku optimizacijskega postopka. Okolica zamenjave dveh srečanj v urniku
 je torej množica vseh možnih zamenjav srečanj v trenutnem urniku.
 
-Sistem okolic je množica vseh možnih sprememb, ki jih lahko z vsemi operacijami iz
+\emph{Sistem okolic} je množica vseh možnih sprememb, ki jih lahko z vsemi operacijami iz
 okolic sistema opravimo na nekem koraku optimizacijskega postopka. Oboroženi z novimi pojmi
 se podajmo v naslednje vrstice.
 
@@ -327,36 +335,37 @@ Do sedaj smo vedno dopuščali le izbiro najboljše možne rešitve iz določene
 je hitro pripeljalo do lokalnega maksimuma, iz katerega pa se je bilo nemogoče izviti, saj
 je najboljša rešitev iz okolice lokalnega maksimuma ponavadi kar lokalni maksimum sam.
 Nadgradnja lokalnega vzpenjanja je jasno razvidna iz naslednje sheme.
-
+\begin{verbatim}
 (1) Izvajaj dokler...
 {
    (2) Iz sistema okolic izberi okolico.
    (3) Iz okolice izberi spremembo.
    (4) Izvedi spremembo.
 }
-
+\end{verbatim}
 Nadobudnežem priporočamo, da najprej sami razmislijo, kaj je globja vsebina posameznih
 korakov, in si šele nato ogledajo njihov natančen opis.
-
-   Zunanjo zanko izvajamo, dokler ne dosežemo enega izmed ustavitvenih pogojev.
-   Če nekaj časa kljub spreminjanju operacij nad urnikom vedno znova obstojimo na isti
-   rešitvi, potem to najverjetneje pomeni, da smo prišli do lokalnega ekstrema. Drugi
-   ustavitveni pogoj je zadovoljivo velika vrednost kriterijske funkcije.
-
-   Naključno izberemo okolico trenutne rešitve. Z okolico izberemo tudi operacijo,
-   ki jo izvajamo na tem koraku (npr. zamenjava dveh srečanj).
-
-   Če v tem koraku izberemo tisto zamenjavo srečanj, ki izmed vseh možnih najbolj
-   poveča vrednost kriterijske funkcije, potem postopamo enako, kot požrešna metoda. Če
-   želimo nadgraditi postopek lokalnega vzpenjanja, ne potrebujemo nujno najboljše možne
-   zamenjave, ampak prvo, ki poveča vrednost kriterijske funkcije. Izjemoma dovolimo tudi
-   tisto zamenjavo, ki vrednost kriterijske funkcije nekoliko zmanjša, kar se na prvi
-   pogled zdi nesmiselno, nas pa dolgoročno pripelje do boljših rešitev.
-
-   Izbrano zamenjavo dveh srečanj izvedemo na trenutnem urniku. Vidimo, da en korak
-   lokalnega vzpenjanja res predstavlja eno spremembo nad urnikom, v konkretnem primeru
-   smo izvedli (eno) zamenjavo dveh srečanj.
-
+\begin{enumerate}
+   \item
+      Zunanjo zanko izvajamo, dokler ne dosežemo enega izmed ustavitvenih pogojev.
+      Če nekaj časa kljub spreminjanju operacij nad urnikom vedno znova obstojimo na isti
+      rešitvi, potem to najverjetneje pomeni, da smo prišli do lokalnega ekstrema. Drugi
+      ustavitveni pogoj je zadovoljivo velika vrednost kriterijske funkcije.
+   \item
+      Naključno izberemo okolico trenutne rešitve. Z okolico izberemo tudi operacijo,
+      ki jo izvajamo na tem koraku (npr.\ zamenjava dveh srečanj).
+   \item
+      Če v tem koraku izberemo tisto zamenjavo srečanj, ki izmed vseh možnih najbolj
+      poveča vrednost kriterijske funkcije, potem postopamo enako, kot požrešna metoda. Če
+      želimo nadgraditi postopek lokalnega vzpenjanja, ne potrebujemo nujno najboljše možne
+      zamenjave, ampak prvo, ki poveča vrednost kriterijske funkcije. Izjemoma dovolimo tudi
+      tisto zamenjavo, ki vrednost kriterijske funkcije nekoliko zmanjša, kar se na prvi
+      pogled zdi nesmiselno, nas pa dolgoročno pripelje do boljših rešitev.
+   \item
+      Izbrano zamenjavo dveh srečanj izvedemo na trenutnem urniku. Vidimo, da en korak
+      lokalnega vzpenjanja res predstavlja eno spremembo nad urnikom, v konkretnem primeru
+      smo izvedli (eno) zamenjavo dveh srečanj.
+\end{enumerate}
 Na tak način izboljšana metoda lokalnega vzpenjanja je časovno veliko zahtevnejša od
 požrešne metode, saj se vrednost kriterijske funkcije ne povečuje tako drastično. Vseeno
 pa vidimo, da se počasi približujemo lokalnemu maksimumu in sčasoma nas bo postopek
@@ -364,7 +373,7 @@ pripeljal do njega. Naključna izbira okolic ter sprejemanje ne nujno najboljše
 nas varujeta, da ne bomo obstali v prvem lokalnem maksimumu, ampak bomo vedno znova
 iskali boljše rešitve.
 
-Slabost do sedaj obravnavanih tehnik še vedno ostaja - ko enkrat obtičimo v lokalnem
+Slabost do sedaj obravnavanih tehnik še vedno ostaja -- ko enkrat obtičimo v lokalnem
 maksimumu, se iz njega ne moremo rešiti. Naslednja metoda poskuša na svojevrsten, a zelo
 sistematičen način odpraviti to težavo.
 
@@ -374,25 +383,25 @@ sistematičen način odpraviti to težavo.
 Glede na to, da bi naj iskanje s tabuji odpravilo problem vračanja v isti lokalni maksimum,
 prepovedujemo izvajanje sprememb, s katerimi bi se vrnili v že najden lokalni maksimum.
 
-Rešitev se ponuja kar sama - za naslednjih n korakov prepovemo vsako spremembo, ki jo
-opravimo v koraku optimizacije. Izbira konstante n je odvisna od samega problema, saj
-ne obstaja neki splošen n, ki bi nas v vsakem primeru pripeljal iz lokalnega ekstrema.
-Imamo torej seznam prepovedanih sprememb - tabujev in na vsakem koraku za izbrano
+Rešitev se ponuja kar sama -- za naslednjih $n$ korakov prepovemo vsako spremembo, ki jo
+opravimo v koraku optimizacije. Izbira konstante $n$ je odvisna od samega problema, saj
+ne obstaja neki splošen $n$, ki bi nas v vsakem primeru pripeljal iz lokalnega ekstrema.
+Imamo torej seznam prepovedanih sprememb -- tabujev in na vsakem koraku za izbrano
 spremembo preverimo, če je element seznama tabujev. Če spremembe ni v seznamu tabujev, jo
 preprosto izvedemo, v primeru, da je, pa postopek vrnemo na iskanje druge spremembe.
 Algoritem iskanja s tabuji se od lokalnega vzpenjanja torej razlikuje le v tem, da pred
 izbiro spremembe preveri, če je vsebovana v seznamu prepovedanih sprememb. Poglejmo, zakaj
 je takšno postopanje smiselno.
 
-Naj bo n=100 ter s1 sprememba urnika, ki nas je pripeljala v lokalni maksimum. To
-spremembo (npr. zamenjava srečanjai in srečanjaj) sedaj shranimo v
-seznam tabujev. V naslednjem koraku izvedemo spremembo s2, ki se prav tako shrani v
+Naj bo $n=100$ ter $s_1$ sprememba urnika, ki nas je pripeljala v lokalni maksimum. To
+spremembo (npr.\ zamenjava $\text{srečanja}_i$ in $\text{srečanja}_j$) sedaj shranimo v
+seznam tabujev. V naslednjem koraku izvedemo spremembo $s_2$, ki se prav tako shrani v
 seznam prepovedanih sprememb. Podobno naredimo za vse spremembe v nadaljnih korakih. S
-tem poskrbimo, da se lahko v isti lokalni maksimum vrnemo šele čez n=100 korakov, saj
-se sprememba s1, ki vodi do lokalnega maksimuma, šele tedaj izbriše iz seznama
+tem poskrbimo, da se lahko v isti lokalni maksimum vrnemo šele čez $n=100$ korakov, saj
+se sprememba $s_1$, ki vodi do lokalnega maksimuma, šele tedaj izbriše iz seznama
 prepovedanih sprememb.
 
-Če smo dosegli lokalni maksimum in vrednost kriterijske funkcije v n korakih uspemo
+Če smo dosegli lokalni maksimum in vrednost kriterijske funkcije v $n$ korakih uspemo
 rešiti iz okolice tega lokalnega maksimuma, potem se je metoda iskanja s tabuji izkazala
 kot uspešna.
 
@@ -401,36 +410,38 @@ kot uspešna.
 Za konec si oglejmo, kako je videti optimizacijski del algoritma za iskanje najboljšega
 urnika, pri čemer je najboljši urnik tisti, ki s kršenjem omejitev pridobi najmanj negativnih
 točk, oziroma ki ima največjo vrednost kriterijske funkcije.
-
+\begin{verbatim}
 (1) r = rešitev, dobljena s požrešno metodo.
 (2) Izvajaj, dokler...
 {
    (3) Z optimizacijo izboljšaj r.
    (4) Oceni r.
 }
-
-   V prvem koraku izvedemo požrešno metodo, ki rešitev urnika pripelje v lokalni maksimum.
-
-   Zanko izvajamo, dokler ne dosežemo enega izmed ustavitvenih pogojev.
-
-   Rešitev r, ki smo jo dobili s pomočjo požrešne metode, izboljšamo z lokalnim vzpenjanjem
-   ali iskanjem s tabuji. Kot je že bilo povedano, je iskanje s tabuji nekoliko primernejša metoda,
-   saj nas bo lažje pripeljala iz lokalnega maksimuma, do katerega smo prišli s požrešno metodo.
-   Vsekakor pa ni nič narobe, če srečo poskusimo tudi z lokalnim vzpenjanjem.
-
-   Na vsakem koraku ocenimo izboljšamo rešitev r. Če je vrednost kriterijske funkcije
-   za trenutno rešitev prešla zastavljeno zadovoljivo mejo, potem se program zaključi. Prav tako
-   se zaključi, če po n korakih še vedno tičimo v istem lokalnem maksimumu.
-
+\end{verbatim}
+\begin{enumerate}
+   \item
+      V prvem koraku izvedemo požrešno metodo, ki rešitev urnika pripelje v lokalni maksimum.
+   \item
+      Zanko izvajamo, dokler ne dosežemo enega izmed ustavitvenih pogojev.
+   \item
+      Rešitev $r$, ki smo jo dobili s pomočjo požrešne metode, izboljšamo z lokalnim vzpenjanjem
+      ali iskanjem s tabuji. Kot je že bilo povedano, je iskanje s tabuji nekoliko primernejša metoda,
+      saj nas bo lažje pripeljala iz lokalnega maksimuma, do katerega smo prišli s požrešno metodo.
+      Vsekakor pa ni nič narobe, če srečo poskusimo tudi z lokalnim vzpenjanjem.
+   \item
+      Na vsakem koraku ocenimo izboljšamo rešitev $r$. Če je vrednost kriterijske funkcije
+      za trenutno rešitev prešla zastavljeno zadovoljivo mejo, potem se program zaključi. Prav tako
+      se zaključi, če po $n$ korakih še vedno tičimo v istem lokalnem maksimumu.
+\end{enumerate}
 To je le ena izmed možnosti, kako zastaviti optimizacijski potek, s katero smo želeli predstaviti
 simbiozo opisanih metod. Nič ne bi bilo narobe, če bi za iskanje najboljšega urnika posamično
-uporabili katero izmed tehnik - mogoče bi katero izmed teh postopanj dalo celo boljši rezultat.
+uporabili katero izmed tehnik -- mogoče bi katero izmed teh postopanj dalo celo boljši rezultat.
 
 \subsection{Zaključek}
 
-Sledili smo receptu in s tem izdelali okusen obrok, treba ga je le še ustrezno postreči
-gostom za mizo. S tem imamo v mislih grafični uporabniški vmesnik (Graphical
-User Interface), ki mora urnik uporabnikom predstaviti na razumljiv in
+Sledili smo receptu in s tem izdelali ``okusen obrok'', treba ga je le še ustrezno postreči
+gostom za mizo. S tem imamo v mislih grafični uporabniški vmesnik (\underline{G}raphical
+\underline{U}ser \underline{I}nterface), ki mora urnik uporabnikom predstaviti na razumljiv in
 pregleden način. Končnega izgleda izdelka nikakor ne smemo zanemariti, saj je ta med uporabniki
 vreden skoraj toliko kot kakovosten urnik. Odločili smo se, da za razmišljanje o tej temi vaši
 domišljiji pustimo prosto pot.
