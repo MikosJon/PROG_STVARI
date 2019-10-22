@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, xifthen, xcolor, calc, printlen}
+\usepackage[slovene]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\newcommand{\numR}{\mathbb{R}}
+\newcommand{\numC}{\mathbb{C}}
+\newcommand{\numN}{\mathbb{N}}
+
+\newcommand{\cont}{\mathcal{C}}
+
+\newcommand{\continousOn}[1]{\cont(#1)}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+\newcommand{\smartCont}[1][]{
+    \cont%
+    \ifthenelse{\equal{#1}{}}
+        {}
+        {(#1)}
+}
+
+\newcommand{\cmd}[1]{\textcolor{blue}{\texttt{\textbackslash#1}}}
+
+\newcommand{\demolength}[1]{
+    \rule{.1pt}{.5em}%
+    \rule{#1}{.1pt}%
+    \rule{.1pt}{.5em}
+}
+
+\newcommand{\whitespaceLength}[1]{\demolength{\widthof{#1}}}
+
+\begin{document}
+\Large
+\begin{enumerate}
+    \item Number systems: $\numR, \numC, \numN$
+    \item Continous functions: $\cont$
+    \item Continous on $[0,1]$: $\continousOn{[0,1]}$
+    \item Vector v: $\vect{v}$
+    \item Continous on $\numR^2$: $\smartCont[\numR^2]$
+    \item Command $\cmd{cont}$ gives continous functions
+    \item A length of 1em: \demolength{1em}
+    \item Widths of spaces:
+    \begin{itemize}
+        \item Prof. A. Bauer = Prof. A. Bauer;
+        \item Prof.~A.~Bauer = Prof.\texttt{\textasciitilde}A.\texttt{\textasciitilde}Bauer;
+        \item Prof.\ A.\ Bauer = Prof.\texttt{\textbackslash} A.\texttt{\textbackslash} Bauer;
+        \item Prof.\,A.\,Bauer = Prof.\texttt{\textbackslash},A.\texttt{\textbackslash,}Bauer;
+    \end{itemize}
+    \texttt{\textasciitilde} is an unbreakable space;
+    \texttt{\textbackslash}  is a forced normal sized space;
+    \texttt{\textbackslash}, is a thin sized unbreakable space
+\end{enumerate}
+\end{document}
