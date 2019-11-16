@@ -5,3 +5,6 @@
 *.synctex.gz
 *.log
 *.out
+*.nav
+*.toc
+*.snm
