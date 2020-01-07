@@ -1,0 +1,33 @@
+body {
+    background-color: lightyellow;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+}
+
+ol {
+    list-style-type: upper-alpha;
+    
+}
+
+ol > li {
+    margin-bottom: 10pt;
+}
+
+li > b {
+    color: blue;
+}
+
+ul {
+    list-style-type: square;
+}
+
+ul > li {
+    color: green;
+}
+
+img {
+    float: right;    
+}
