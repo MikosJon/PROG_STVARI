@@ -1,0 +1,237 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath, amssymb}
+
+\newcommand{\numC}{\mathbb{C}}
+\newcommand{\numR}{\mathbb{R}}
+\newcommand{\numZ}{\mathbb{Z}}
+\newcommand{\numN}{\mathbb{N}}
+
+\pagestyle{empty}
+
+\begin{document}
+\section*{Naloge iz matematike}
+\begin{enumerate}
+\item
+Dokaži, da je enačba $(P \cap X) \cup (Q \cap X^c) = \emptyset$
+rešljiva natanko tedaj, ko je $Q \subseteq P^c$.
+
+\item
+Pokaži:
+\begin{itemize}
+    \item $M = N \iff M + N = \emptyset$
+    \item $M = N = \emptyset \iff M \cup N = \emptyset$
+\end{itemize}
+
+\item
+Ali obstaja tak izjavni izraz $A$ da bosta izraza
+$(p \land A) \lor (p \Rightarrow \neg A)$ in $(p \Rightarrow A) \Rightarrow q$
+enakovredna?
+
+\item
+Dokaži:
+\begin{itemize}
+    \item $(A \Rightarrow B) \sim (\neg B \Rightarrow \neg A)$
+    \item $\neg (A \lor B) \sim \neg A \land \neg B$
+\end{itemize}
+
+\item
+Poišči preneksno obliko formule $\exists x : P(x) \land \forall x :
+Q(x) \Rightarrow \forall x : R(x)$.
+
+\item
+Vektorja $\vec{c} = \vec{a} + 2\vec{b}$ in $\vec{d} = \vec{a} - \vec{b}$
+sta pravokotna in imata dolžino 1. Določi kot med vektorjema $\vec{a}$ in $\vec{b}$.
+
+\item
+Določi definicijsko območje funkcije
+\[
+    f(x) = \log \frac{x^2 + 1}{x^2 - 4x + 3}
+\]
+
+\item
+Izračunaj
+\[
+    \cos^2 \frac{3\pi}{8} + \cos^2 \frac{5\pi}{8} + 
+    \cos^2 \frac{7\pi}{8} + \cos^2 \frac{8\pi}{8}
+\]
+
+\item
+Dokaži, da za vsa naravna števila $n$ velja
+\[
+    \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \cdots + \frac{1}{\sqrt{n}} \geq \sqrt{n}  
+\]
+
+\item
+Naj bo $z$ kompleksno število, $z \neq 1$ in $|z| = 1$.
+Dokaži, da je število $i \frac{z+1}{z-1}$ realno.
+
+\item
+Pokaži, da je funkcija $x \mapsto \sqrt{x}$ enakomerno zvezna na $[0, \infty)$.
+
+\item
+Izračunaj limito
+\[
+    \lim_{x \to \infty} (\sin \sqrt{x + 1} - \sin \sqrt{x})    
+\]
+
+\item
+Dani sta grupi $(G,\ast)$ in $(H, \circ)$. V množici $G \times H$ definiramo operacijo
+\[
+    (g_1, h_1) \cdot (g_2, h_2) = (g_1 \ast g_2, h_1 \circ h_2)
+\]
+Pokaži, da je množica $G \times H$ grupa za to operacijo.
+
+\item
+Pokaži, da ima $f(x) = 3x + \sin(2x)$ inverzno funkcijo in izračunaj $(f^{-1})(3\pi)$.
+
+\item
+Izračunaj integral korenske funkcije
+\[
+    \int \frac{2 + \sqrt{x + 1}}{(x + 1)^2 - \sqrt{x + 1}}\,dx    
+\]
+
+\item
+Krivulja je podana parametrično z enačbama
+\[
+    x(t) = \int_{1}^{t} \frac{\sin u}{u^2}\,du \qquad
+    y(t) = \int_{1}^{t} \frac{\cos u}{u^2}\,du
+\]
+Izračunaj dolžino poti od točke $x = 0$ do točke, v kateri je tangenta prvič navpična.
+
+\item
+Naj bo $\sum_{n = 1}^{\infty} a_n$ absolutno konvergentna vrsta in $a_n \neq 1$ za $n \in \numR$.
+Dokaži, da sta vrsti
+\[
+    \sum_{n = 1}^{\infty} \frac{a_n}{1 + a_n} \qquad \text{in} \qquad
+    \sum_{n = 1}^{\infty} \frac{a_{n}^{2}}{1 + a_{n}^{2}}
+\]
+absolutno konvergentni.
+
+\item
+Funkcijsko zaporedje $f_n : [a, b] \to [c, d]$ enakomerno konvergira na $[a, b]$ proti
+funkciji $f$. Naj bo $g : [c, d] \to \numR$ zvezna. Dokaži, da funkcijsko zaporedje
+$g \circ f_n$ enakomerno konvergina na $[a, b]$ in določi njegovo limitno funkcijo.
+
+\item
+Izračunaj limito zaporedja
+\[
+    \lim_{n \to \infty} \frac{\sqrt[3]{n^2 + n -1} + \sqrt[3]{n} + n^2}{2n^2 + \sqrt{n} + 1}
+\]
+
+\item
+Izračunaj
+$
+\left(\,
+\begin{matrix}
+    1 & 2 & 3 & 4 & 5 & 6\\
+    4 & 5 & 2 & 6 & 3 & 1
+\end{matrix}
+\,\right)^{-2000}
+$
+
+\item
+Poenostavi
+\[
+    \frac{
+        \dfrac{3 + i}{2 - 2i} + \dfrac{7i}{1-i}
+    }{
+        1 + \dfrac{i-1}{4} - \dfrac{5}{2-3i}
+    }    
+\]
+
+\item
+Za dani zaporedji preveri, ali sta konvergentni
+\[
+    a_n = \underbrace{\sqrt{2 + \sqrt{2 + \cdots + \sqrt{2}}}}_{\text{$n$ korenov}} \qquad
+    b_n = \underbrace{\sin(\sin(\dots(\sin1)\dots))}_{\text{$n$ sinusov}}   
+\]
+
+\item
+Ugotovi, ali obstaja
+\[
+    \lim_{y \to 0} y \left(\frac{y + 1}{y} - \sqrt{\frac{y^2 + 1}{y^2}}\right)    
+\]
+Pomagaj si z limitama funkcije $\dfrac{x + 1 - \sqrt{x^2 + 1}}{x}$ v $-\infty$ in $\infty$.
+
+\item
+Izračunaj naslednjo determinanto $2n \times 2n$, ki ima na neoznačenih mestih ničle.
+\[
+\begin{vmatrix}
+    1 &   &        &     &  1     &     &     &        &    \\
+      & 2 &        &     &  2     &     &     &        &    \\
+      &   & \ddots &     & \vdots &     &     &        &    \\
+      &   &        & n-1 & n-1    &     &     &        &    \\
+    1 & 2 & \dots  & n-1 & n      & n+1 & n+2 & \dots  & 2n \\
+      &   &        &     & n+1    & n+1 &     &        &    \\
+      &   &        &     & n+2    &     & n+2 &        &    \\
+      &   &        &     & \vdots &     &     & \ddots &    \\
+      &   &        &     & 2n     &     &     &        & 2n
+\end{vmatrix}
+\]
+
+\item
+Dana je funkcija
+\[
+    f(x, y) = 
+    \begin{cases}
+        \frac{3x^{2}y - y^3}{x^2 + y^2}; & (x, y) \neq (0, 0) \\
+        a;                               & (x, y) = (0, 0)
+    \end{cases}    
+\]
+\begin{itemize}
+    \item Določi parameter $a$ tako, da bo $f$ zvezna.
+    \item Izračunaj parcialna odvoda $f_x(x, y)$ in $f_y(x, y)$ za $(x, y) \neq (0, 0)$.
+    \item Izračunaj parcialna odvoda $f_x(0, 0)$ in $f_y(0, 0)$. Če obstaja, izračunaj limito
+    \[
+        \lim_{(x, y) \to (0, 0)} \frac{f(x, y) - f_x(0, 0) - f_y(0, 0)}{\sqrt{x^2 + y^2}}
+    \]
+    Ali je funkcija $f$ diferenciabilna?
+\end{itemize}
+
+\item
+Poišči vse rešitve enačbe
+\begin{multline*}
+    (1 + x + x^2) \cdot (1 + x + x^2 + x^3 + \dots + x^9 + x^{10}) =\\
+    = (1 + x + x^2 + x^3 + x^4 + x^5 + x^6)^2
+\end{multline*}
+
+\item
+Dokaži \emph{binomsko formulo}: za vsaki realni števili $a$ in $b$
+in za vsako naravno število $n$ velja
+\begin{align*}
+    (a + b)^n &= a^n + na^{n-1}b + \cdots + \binom{n}{k}a^{n-k} b^k + \cdots nab^{n-1} + b^n\\
+              &= \sum_{k = 0}^{n} \binom{n}{k} a^{n-k} b^k
+\end{align*}
+
+\item
+Naj bo
+\begin{align*}
+    G &= \{z \in \numC; z = 2^k (\cos(m \pi \sqrt{2}) + i\sin(m \pi \sqrt{2})),k,m \in \numZ\}\\
+    H &= \{(x, y) \in \numR^2; x, y \in \numZ\}
+\end{align*}
+\begin{enumerate}
+    \item Pokaži, da je $G$ podgrupa v grupi $(\numC \backslash \{0\}, \cdot)$
+    neničelnih kompleksnih števil za običajno množenje.
+    \item Pokaži, da je $H$ podgrupa v aditivni grupi $(\numR^2, +)$
+    ravninskih vektorjev za običajno seštevanje po komponentah.
+    \item Pokaži, da je preslikava $f: H \to G$, podana s pravilom
+    \[
+        (x, y) \mapsto 2^x  (\cos(y \pi \sqrt{2}) + i\sin(y \pi \sqrt{2}))
+    \]
+    izomorfizem grup $G$ in $H$.
+\end{enumerate}
+
+\item
+Nariši grafe funkcij:
+\begin{align*}
+    y &= x^2 - 3|x| + 2    & y &= 3 \sin(\pi + x) - 2\\
+    y &= \log_2(x - 2) + 3 & y &= 2 \sqrt{x^2 + 15} + 6\\
+    y &= 2^{x - 3} + 1     & y &= \cos(x - 3) + \sin^2(x + 1) 
+\end{align*}
+\end{enumerate}
+\end{document}

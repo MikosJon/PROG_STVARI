@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}
+
+\bibitem{berlekamp}
+{\sc E.~R. Berlekamp, J.~H. Conway, and R.~K. Guy}, {\em Games in particular},
+  in Winning Ways for Your Mathematical Plays, vol.~2, Academic Press, London,
+  1982.
+
+\bibitem{bessy}
+{\sc B.~F. de~Bessy}, {\em Des quarrez magiques}, De l'imprimerie Royale par
+  Jean Anisson, Paris, 1693.
+
+\bibitem{euler}
+{\sc L.~Euler}, {\em De quadratis magicis}, Commentationes arithmeticae, 2
+  (1849), pp.~593--602.
+
+\bibitem{gardner}
+{\sc M.~Gardner}, {\em Mathematical games}, Scientific American, 234 (1976),
+  pp.~118--122.
+
+\bibitem{pinn}
+{\sc K.~Pinn and C.~Wieczerkowski}, {\em Number of magic squares from parallel
+  tempering monte carlo}, Int.\ J. Mod.\ Phys.\ C, 9 (1998), pp.~541--547.
+
+\end{thebibliography}

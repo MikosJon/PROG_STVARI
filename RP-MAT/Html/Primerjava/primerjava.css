@@ -1,0 +1,56 @@
+body {
+    background-image: url("ozadje.jpg");
+}
+
+h1 {
+    font-family: "Comic Sans MS";
+    font-size: 22pt;
+    color: blue;
+}
+
+table {
+    border-collapse: collapse;
+    border: solid blue 3px;
+}
+
+h2 {
+    font-family: "Tahoma";
+    font-size: 14pt;
+    color: red;
+}
+
+td {
+    width: 320px;
+    padding: 10px;
+}
+
+img {
+    width: 80px;
+    float: right;
+}
+
+ul {
+    font-family: Arial;
+    font-size: 11pt;
+    font-style: italic;
+    list-style-type: square;
+}
+
+li b {
+    font-style: normal;
+}
+
+.light {
+    background-color: lightblue
+}
+
+.corn {
+    background-color: cornflowerblue;
+}
+
+#slo_data {
+    color: blue;
+}
+#slo_data b {
+    font-variant: small-caps; 
+}

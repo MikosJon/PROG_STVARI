@@ -1,0 +1,39 @@
+body {
+    background-image: url("novice.jpg");
+}
+
+h1 {
+    font-family: "Comic Sans MS";
+    color: red;
+}
+
+table {
+    border: none;
+    border-spacing: 5px 10px;
+}
+
+td {
+    background-color: white;
+    border: solid black 1px;
+    width: 190px;
+    height: 92px;
+    vertical-align: top;
+    font-family: Verdana;
+    font-size: 11px;
+    padding: 0;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+    background-color: lightgrey;
+    font-family: Arial;
+    font-size: 11px;
+    border-bottom: solid grey 2px;
+    padding: 3px;
+}
+
+img {
+    float: left;
+    margin: 3px;
+}

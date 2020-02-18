@@ -1,0 +1,61 @@
+body {
+    background-color: lightyellow;
+    font-family: Helvetica;
+    color: brown;
+}
+
+h1 {
+    font-size: 32pt;
+    text-align: center;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+a:hover {
+    color: red;
+}
+
+table{
+    border: none;
+    border-spacing: 10px 0;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;   
+}
+
+td, th {
+    border: 1px solid brown;
+    padding-right: 30px;
+}
+td {
+    /* 
+    - without this, the ul gets pushed up to the top of the cell, 
+      even though it has a top margin
+    
+    - the 16px is the default top margin of the ul
+    */
+    padding-top: 16px;
+}
+ul {
+    list-style-type: none;
+}
+
+#prva {
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 120%;
+}
+#prva:hover {
+    background-color: wheat;
+    text-decoration: underline;
+}
+
+img {
+    display: block;
+    margin: auto;
+    border: 2px solid brown;
+    padding: 5px;
+}
