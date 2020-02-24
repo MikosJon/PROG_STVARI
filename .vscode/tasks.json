@@ -11,7 +11,7 @@
         {
             "label": "python run file",
             "type": "shell",
-            "command": "python -i \\\"${file}\\\"",
+            "command": "python -i ${file}",
             "problemMatcher": []
         },
     ]

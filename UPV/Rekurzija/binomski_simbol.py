@@ -1,33 +1,55 @@
 # =============================================================================
-# Datumi
-# =====================================================================@000927=
+# Binomski simbol
+# =====================================================================@000950=
 # 1. podnaloga
-# Sestavite funkcijo `je_prestopno(leto)`, ki vrne `True`, kadar je `leto`
-# prestopno, in `False`, kadar ni.
+# Ena najbolj znanih formul za binomski simbol je
+#   $$\binom{n}{k} = \frac{n!}{k! \cdot (n - k)!}$$
+# Definirajte funkcijo `binomski_fakulteta(n, k)`, ki s pomočjo te formule
+# izračuna binomski simbol. Ne pozabite si definirati tudi funkcije `fakulteta`.
 # =============================================================================
-def je_prestopno(leto):
-    return (leto % 4 == 0 and leto % 100 != 0) or leto % 400 == 0
+def fakulteta(n):
+    if n == 1:
+        return 1
+    return n * fakulteta(n-1)
 
-# =====================================================================@000928=
+def binomski_fakulteta(n, k):    
+    return fakulteta(n) // (fakulteta(n-k) * fakulteta(k))
+# =====================================================================@000951=
 # 2. podnaloga
-# Sestavite funkcijo `stevilo_dni(mesec, leto)`, ki vrne število dni danega
-# meseca (podanega s številom med 1 in 12) v danem letu.
+# Seveda to ni edini način za izračun binomskega simbola. Lahko ga izračunamo
+# tudi kot:
+#   $$\binom{n}{k} = \binom{n - 1}{k} + \binom{n - 1}{k - 1}$$
+# pri čemer je treba upoštevati, da velja $\binom{n}{0} = \binom{n}{n} = 1$.
+# Definirajte funkcijo `binomski_rekurzija(n, k)`, ki binomski simbol definira
+# po tej formuli.
 # =============================================================================
-def stevilo_dni(mesec, leto):
-    dnevi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mesec-1]
-    if mesec == 2 and je_prestopno(leto):
-        return dnevi + 1
-    else:
-        return dnevi
-# =====================================================================@000929=
+def binomski_rekurzija(n, k):
+    if k ==0 or k == n:
+        return 1
+    return binomski_rekurzija(n-1, k) + binomski_fakulteta(n-1, k-1)
+# =====================================================================@000952=
 # 3. podnaloga
-# Sestavite funkcijo `je_veljaven_datum(dan, mesec, leto)`, ki vrne `True`
-# natanko tedaj, kadar `dan`, `mesec` in `leto` določajo veljaven datum
-# (torej `mesec` mora biti število med 1 in 12, `dan` pa mora ustrezati dnevu
-# v tem mesecu).
+# Bolj učinkovit način za izračun binomskega simbola pa je:
+#   $$\binom{n}{k} = \frac{n - k + 1}{k} \binom{n}{k - 1}$$
+# pri čemer je treba upoštevati, da velja $\binom{n}{0} = 1$.
+# Definirajte še funkcijo `binomski_ucinkovit(n, k)`, ki binomski simbol
+# definira po tej formuli. Pri tem pazite, da za rezultat vrnete celo število.
 # =============================================================================
-def je_veljaven_datum(dan, mesec, leto):
-    return 1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+def binomski_ucinkovit(n, k):
+    if k == 0:
+        return 1
+    return (n - k + 1) * binomski_ucinkovit(n, k-1) // k
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,45 +598,33 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjd9:1j43Qh:HT58ujc9tpcKpGq_zH5HKVIIZJ8'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTB9:1j6L2T:dyW00ZOUp6zUCKBzOKND8xOoA2M'
         try:
-            Check.equal('je_prestopno(2016)', True)
-            Check.equal('je_prestopno(2015)', False)
-            Check.equal('je_prestopno(2000)', True)
-            Check.equal('je_prestopno(1900)', False)
-            for leto in range(1950, 2050):
-                Check.secret(je_prestopno(leto), leto)
+            Check.equal('binomski_fakulteta(10, 2)', 45)
+            Check.equal('binomski_fakulteta(8, 4)', 70)
+            Check.equal('binomski_fakulteta(13, 9)', 715)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjh9:1j43Qh:YUbReCcWYb8o7YakGBOSFOlqi1A'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTF9:1j6L2T:WXH9POARWbm5t0pEqnj351cVc88'
         try:
-            Check.equal('stevilo_dni(2, 2016)', 29)
-            Check.equal('stevilo_dni(3, 2011)', 31)
-            Check.equal('stevilo_dni(2, 2011)', 28)
-            Check.equal('stevilo_dni(4, 2011)', 30)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 13):
-                    Check.secret(stevilo_dni(mesec, leto), (mesec, leto))
+            Check.equal('binomski_rekurzija(10, 2)', 45)
+            Check.equal('binomski_rekurzija(8, 4)', 70)
+            Check.equal('binomski_rekurzija(13, 9)', 715)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjl9:1j43Qh:PyN8fJlzrKmnVpgP2bWLSBhLaV0'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTJ9:1j6L2T:a6QpuiLdgx0DkvlnhO8GF33tj0s'
         try:
-            Check.equal('je_veljaven_datum(29, 2, 2016)', True)
-            Check.equal('je_veljaven_datum(29, 3, 2011)', True)
-            Check.equal('je_veljaven_datum(29, 2, 2011)', False)
-            Check.equal('je_veljaven_datum(35, 4, 2011)', False)
-            Check.equal('je_veljaven_datum(2, 13, 2011)', False)
-            Check.equal('je_veljaven_datum(12, 3, 2016)', True)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 15):
-                    for dan in range(28, 33):
-                        Check.secret(je_veljaven_datum(dan, mesec, leto), (dan, mesec, leto))
+            Check.equal('binomski_ucinkovit(10, 2)', 45)
+            Check.equal('binomski_ucinkovit(8, 4)', 70)
+            Check.equal('binomski_ucinkovit(13, 9)', 715)
+            if type(binomski_ucinkovit(10, 2)) != int:
+                Check.error('Funkcija binomski_ucinkovit ne vrača celega števila.')
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

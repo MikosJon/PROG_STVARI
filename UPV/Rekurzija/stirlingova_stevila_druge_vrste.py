@@ -1,33 +1,90 @@
 # =============================================================================
-# Datumi
-# =====================================================================@000927=
+# Stirlingova števila druge vrste
+#
+# Ogledali si bomo rekurzivno zvezo, ki velja za Stirlingova števila druge
+# vrste. Več o tem si lahko preberete na
+# [wikipediji](https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind).
+# =====================================================================@020023=
 # 1. podnaloga
-# Sestavite funkcijo `je_prestopno(leto)`, ki vrne `True`, kadar je `leto`
-# prestopno, in `False`, kadar ni.
+# Stirlingova števila druge vrste $S(n,k)$ štejejo na koliko načinov lahko
+# razdelimo množico z $n$ elementi v $k$ nepraznih podmnožic. Ekvivalentno,
+# izražajo število ekvivalenčnih relacij na $n$-elementni množici z natanko
+# $k$ ekvivalenčnimi razredi. Za Stirlingova števila druge vrste velja
+# naslednja rekurzivna zveza:
+# $$ S(n,k) = k \cdot S(n-1,k) + S(n-1,k-1) $$
+# z začetnimi pogoji $S(0,0) = 1$ in $S(m,0) = S(0,m) = 0$ za $m > 0$.
+# 
+# Sestavite funkcijo `stirling(n, k)`, ki preko rekurzivne zveze izračuna
+# Stirlingovo število druge vrste.
+# 
+#     >>> stirling(4,2)
+#     7
+#     >>> stirling(10,3)
+#     9330
 # =============================================================================
-def je_prestopno(leto):
-    return (leto % 4 == 0 and leto % 100 != 0) or leto % 400 == 0
-
-# =====================================================================@000928=
+def stirling(n, k):
+    if n == 0 and k == 0:
+        return 1
+    if n == 0 or k == 0:
+        return 0
+    return k * stirling(n-1, k) +  stirling(n-1, k-1)
+# =====================================================================@020024=
 # 2. podnaloga
-# Sestavite funkcijo `stevilo_dni(mesec, leto)`, ki vrne število dni danega
-# meseca (podanega s številom med 1 in 12) v danem letu.
+# Stirlingova števila druge vrste lahko računamo tudi po naslednji direktni
+# formuli: 
+# $$ S(n,k) =\frac{1}{k!} \sum_{j=0}^k (-1)^j \binom{k}{j} (k-j)^n.$$
+# Sestavite funkcijo `stirling_vsota(n, k, j)`, ki izračuna delno vsoto za
+# za izračun $k! \cdot S(n,k)$ do vključno $j$-tega člena.
+# Ne pozabite definirati funkcije `binomski(n, k)`.
+# 
+#     >>> stirling_vsota(4,3,2)
+#     36
+#     >>> stirling_vsota(4,2,2)
+#     14
+#     >>> stirling_vsota(10,3,2)
+#     55980
+#     >>>
 # =============================================================================
-def stevilo_dni(mesec, leto):
-    dnevi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mesec-1]
-    if mesec == 2 and je_prestopno(leto):
-        return dnevi + 1
+def binomski(n, k):
+    if k == 0:
+        return 1
+    return ((n - k + 1) * binomski(n, k-1)) // k
+
+def stirling_vsota(n, k, j):
+    clen = binomski(k, j) * ((k - j) ** n) * ((-1) ** j)
+    if j == 0:
+        return clen
     else:
-        return dnevi
-# =====================================================================@000929=
+        return clen + stirling_vsota(n, k, j-1)
+# =====================================================================@020027=
 # 3. podnaloga
-# Sestavite funkcijo `je_veljaven_datum(dan, mesec, leto)`, ki vrne `True`
-# natanko tedaj, kadar `dan`, `mesec` in `leto` določajo veljaven datum
-# (torej `mesec` mora biti število med 1 in 12, `dan` pa mora ustrezati dnevu
-# v tem mesecu).
+# S pomočjo funkcije `stirling_vsota` iz prejšnje podnaloge
+# sestavite fukcijo `stirling_direktno(n, k)`, ki izračuna Stirlingovo število
+# druge vrste $S(n,k)$.
+# Ne pozabite definirati funkcije `fakulteta(n)`.
+# 
+#     >>> stirling_direktno(4,2)
+#     7
+#     >>> stirling_direktno(10,3)
+#     9330
 # =============================================================================
-def je_veljaven_datum(dan, mesec, leto):
-    return 1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+def fakulteta(n):
+    if n == 0:
+        return 1
+    return n * fakulteta(n-1)
+
+def stirling_direktno(n, k):
+    return stirling_vsota(n, k, k) // fakulteta(k)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,45 +633,49 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjd9:1j43Qh:HT58ujc9tpcKpGq_zH5HKVIIZJ8'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0IjoyMDAyM30:1j6LLU:s_CXoJNC4enlb6mu5WM04UZTFoE'
         try:
-            Check.equal('je_prestopno(2016)', True)
-            Check.equal('je_prestopno(2015)', False)
-            Check.equal('je_prestopno(2000)', True)
-            Check.equal('je_prestopno(1900)', False)
-            for leto in range(1950, 2050):
-                Check.secret(je_prestopno(leto), leto)
+            Check.equal('stirling(4,2)', 7)
+            Check.equal('stirling(4,3)', 6)
+            Check.equal('stirling(1,0)', 0)
+            Check.equal('stirling(0,0)', 1)
+            Check.equal('stirling(0,1)', 0)
+            
+            for n in range(0, 20):
+                for k in range(0, n+1):
+                    Check.secret(stirling(n, k))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjh9:1j43Qh:YUbReCcWYb8o7YakGBOSFOlqi1A'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0IjoyMDAyNH0:1j6LLU:_qT8K5b7vyj_GaYcj5Abu-SwFzw'
         try:
-            Check.equal('stevilo_dni(2, 2016)', 29)
-            Check.equal('stevilo_dni(3, 2011)', 31)
-            Check.equal('stevilo_dni(2, 2011)', 28)
-            Check.equal('stevilo_dni(4, 2011)', 30)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 13):
-                    Check.secret(stevilo_dni(mesec, leto), (mesec, leto))
+            Check.equal('stirling_vsota(4,3,2)', 36)
+            Check.equal('stirling_vsota(4,2,2)', 14)
+            Check.equal('stirling_vsota(1,0,0)', 0)
+            Check.equal('stirling_vsota(0,0,0)', 1)
+            Check.equal('stirling_vsota(10,3,2)', 55980)
+            
+            for n in range(0, 20):
+                for k in range(0, n+1):
+                    Check.secret(stirling_vsota(n, k, k), hint = (n,k))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjl9:1j43Qh:PyN8fJlzrKmnVpgP2bWLSBhLaV0'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0IjoyMDAyN30:1j6LLU:v59EbCv1rAqDLYdK05G1ixy8Rrk'
         try:
-            Check.equal('je_veljaven_datum(29, 2, 2016)', True)
-            Check.equal('je_veljaven_datum(29, 3, 2011)', True)
-            Check.equal('je_veljaven_datum(29, 2, 2011)', False)
-            Check.equal('je_veljaven_datum(35, 4, 2011)', False)
-            Check.equal('je_veljaven_datum(2, 13, 2011)', False)
-            Check.equal('je_veljaven_datum(12, 3, 2016)', True)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 15):
-                    for dan in range(28, 33):
-                        Check.secret(je_veljaven_datum(dan, mesec, leto), (dan, mesec, leto))
+            Check.equal('stirling_direktno(4,2)', 7)
+            Check.equal('stirling_direktno(4,3)', 6)
+            Check.equal('stirling_direktno(1,0)', 0)
+            Check.equal('stirling_direktno(0,0)', 1)
+            Check.equal('stirling_direktno(0,1)', 0)
+            
+            for n in range(0, 20):
+                for k in range(0, n+1):
+                    Check.secret(stirling_direktno(n, k), hint = (n,k))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

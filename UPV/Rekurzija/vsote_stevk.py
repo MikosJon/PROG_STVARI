@@ -1,33 +1,57 @@
 # =============================================================================
-# Datumi
-# =====================================================================@000927=
+# Vsote števk
+# =====================================================================@000956=
 # 1. podnaloga
-# Sestavite funkcijo `je_prestopno(leto)`, ki vrne `True`, kadar je `leto`
-# prestopno, in `False`, kadar ni.
+# Sestavite funkcijo `vsota_stevk(n)`, ki vrne vsoto števk števila `n`.
 # =============================================================================
-def je_prestopno(leto):
-    return (leto % 4 == 0 and leto % 100 != 0) or leto % 400 == 0
-
-# =====================================================================@000928=
-# 2. podnaloga
-# Sestavite funkcijo `stevilo_dni(mesec, leto)`, ki vrne število dni danega
-# meseca (podanega s številom med 1 in 12) v danem letu.
-# =============================================================================
-def stevilo_dni(mesec, leto):
-    dnevi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mesec-1]
-    if mesec == 2 and je_prestopno(leto):
-        return dnevi + 1
+def vsota_stevk(n):
+    if n % 10 == n:
+        return n
     else:
-        return dnevi
-# =====================================================================@000929=
-# 3. podnaloga
-# Sestavite funkcijo `je_veljaven_datum(dan, mesec, leto)`, ki vrne `True`
-# natanko tedaj, kadar `dan`, `mesec` in `leto` določajo veljaven datum
-# (torej `mesec` mora biti število med 1 in 12, `dan` pa mora ustrezati dnevu
-# v tem mesecu).
+        return (n % 10) + vsota_stevk(n // 10)
+# =====================================================================@000957=
+# 2. podnaloga
+# Sestavite funkcijo `vsota_vecjih_stevk(n, k)`, ki vrne vsoto tistih števk
+# števila `n`, ki so večje ali enake `k`. Če parametra `k` ne podamo, naj
+# funkcija vrne vsoto vseh števk števila `n`.
 # =============================================================================
-def je_veljaven_datum(dan, mesec, leto):
-    return 1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+def vsota_vecjih_stevk(n, k=1):
+    if n == 0:
+        return 0
+    elif n % 10 >= k:
+        return (n % 10) + vsota_vecjih_stevk(n // 10, k)
+    else:
+        return vsota_vecjih_stevk(n // 10, k)
+# =====================================================================@000958=
+# 3. podnaloga
+# Sestavite funkcijo `vsota_stevk_stevil_med(m, n)`, ki vrne vsoto števk
+# vseh števil med vključno `m` in `n`.
+# =============================================================================
+def vsota_stevk_stevil_med(m, n):
+    if m > n:
+        return 0
+    if m == n:
+        return vsota_stevk(m)
+    else:
+        return vsota_stevk(m) + vsota_stevk_stevil_med(m+1, n)
+# =====================================================================@000959=
+# 4. podnaloga
+# Sestavite **učinkovito** funkcijo `najmanjse_stevilo_z_vsoto_stevk(n)`,
+# ki izračuna točno to, kar piše v njenem imenu.
+# =============================================================================
+def najmanjse_stevilo_z_vsoto_stevk(n):
+    return (n % 9 + 1) * (10 ** (n // 9)) - 1
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,45 +600,56 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjd9:1j43Qh:HT58ujc9tpcKpGq_zH5HKVIIZJ8'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTZ9:1j6KaD:R4JmSiRHNiF3hfXpP6QGdoCuBs0'
         try:
-            Check.equal('je_prestopno(2016)', True)
-            Check.equal('je_prestopno(2015)', False)
-            Check.equal('je_prestopno(2000)', True)
-            Check.equal('je_prestopno(1900)', False)
-            for leto in range(1950, 2050):
-                Check.secret(je_prestopno(leto), leto)
+            Check.equal('vsota_stevk(428)', 14)
+            Check.equal('vsota_stevk(9563)', 23)
+            Check.equal('vsota_stevk(29543)', 23)
+            Check.equal('vsota_stevk(1749332)', 29)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjh9:1j43Qh:YUbReCcWYb8o7YakGBOSFOlqi1A'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTd9:1j6KaD:REVNMwp-lRG7GA0gjClvjzGodDI'
         try:
-            Check.equal('stevilo_dni(2, 2016)', 29)
-            Check.equal('stevilo_dni(3, 2011)', 31)
-            Check.equal('stevilo_dni(2, 2011)', 28)
-            Check.equal('stevilo_dni(4, 2011)', 30)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 13):
-                    Check.secret(stevilo_dni(mesec, leto), (mesec, leto))
+            try:
+                Check.equal('vsota_vecjih_stevk(428)', 14)
+                Check.equal('vsota_vecjih_stevk(9563)', 23)
+                Check.equal('vsota_vecjih_stevk(29543)', 23)
+                Check.equal('vsota_vecjih_stevk(1749332)', 29)
+            except:
+                Check.error('Število k je podano kot obvezen argument.')
+            
+            Check.equal('vsota_vecjih_stevk(9563, k=6)', 15)
+            Check.equal('vsota_vecjih_stevk(849469, k=5)', 32)
+            for i in range(1, 100):
+                n = i ** i
+                k = i % 10
+                Check.secret(vsota_vecjih_stevk(n, k), '{0}^{0}, {1}'.format(i, k))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjl9:1j43Qh:PyN8fJlzrKmnVpgP2bWLSBhLaV0'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTh9:1j6KaD:4wIR7_nuhaOQdPSFdJ5V-qKWduM'
         try:
-            Check.equal('je_veljaven_datum(29, 2, 2016)', True)
-            Check.equal('je_veljaven_datum(29, 3, 2011)', True)
-            Check.equal('je_veljaven_datum(29, 2, 2011)', False)
-            Check.equal('je_veljaven_datum(35, 4, 2011)', False)
-            Check.equal('je_veljaven_datum(2, 13, 2011)', False)
-            Check.equal('je_veljaven_datum(12, 3, 2016)', True)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 15):
-                    for dan in range(28, 33):
-                        Check.secret(je_veljaven_datum(dan, mesec, leto), (dan, mesec, leto))
+            Check.equal("""vsota_stevk_stevil_med(1, 500)""", 5505)
+            Check.equal("""vsota_stevk_stevil_med(123, 456)""", 3777)
+            Check.equal("""vsota_stevk_stevil_med(30, 20)""", 0)
+            for i in range(1, 100):
+                m = 100 * i
+                n = m + 100
+                Check.secret(vsota_stevk_stevil_med(m, n), (m, n))
+        except:
+            Check.error("Testi sprožijo izjemo\n  {0}",
+                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
+
+    if Check.part():
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTl9:1j6KaD:mqwB9GTYNuyHltTKfv_Q7YM_CSs'
+        try:
+            for i in range(1, 100):
+                Check.secret(najmanjse_stevilo_z_vsoto_stevk(i), i)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

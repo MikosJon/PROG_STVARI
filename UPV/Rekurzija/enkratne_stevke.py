@@ -1,33 +1,52 @@
 # =============================================================================
-# Datumi
-# =====================================================================@000927=
+# Enkratne števke
+# =====================================================================@020025=
 # 1. podnaloga
-# Sestavite funkcijo `je_prestopno(leto)`, ki vrne `True`, kadar je `leto`
-# prestopno, in `False`, kadar ni.
+# Napišite funkcijo `kolikokrat_se_pojavi_stevka(k, n)`, ki prešteje kolikokrat
+# se v številu `n` pojavi števka `k`.
+# 
+#     >>> kolikokrat_se_pojavi_stevka(5, 294535)
+#     2
+#     >>> kolikokrat_se_pojavi_stevka(1, 1)
+#     1
 # =============================================================================
-def je_prestopno(leto):
-    return (leto % 4 == 0 and leto % 100 != 0) or leto % 400 == 0
-
-# =====================================================================@000928=
-# 2. podnaloga
-# Sestavite funkcijo `stevilo_dni(mesec, leto)`, ki vrne število dni danega
-# meseca (podanega s številom med 1 in 12) v danem letu.
-# =============================================================================
-def stevilo_dni(mesec, leto):
-    dnevi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mesec-1]
-    if mesec == 2 and je_prestopno(leto):
-        return dnevi + 1
+def kolikokrat_se_pojavi_stevka(k, n):
+    if n == 0:
+        return 1 if k == n else 0
+    if n % 10 == k:
+        return 1 + kolikokrat_se_pojavi_stevka(k, n // 10)
     else:
-        return dnevi
-# =====================================================================@000929=
-# 3. podnaloga
-# Sestavite funkcijo `je_veljaven_datum(dan, mesec, leto)`, ki vrne `True`
-# natanko tedaj, kadar `dan`, `mesec` in `leto` določajo veljaven datum
-# (torej `mesec` mora biti število med 1 in 12, `dan` pa mora ustrezati dnevu
-# v tem mesecu).
+        return kolikokrat_se_pojavi_stevka(k, n // 10)
+# =====================================================================@020026=
+# 2. podnaloga
+# Napišite funkcijo `ali_ima_enkratne_stevke(n)`, ki preveri, ali se v celem
+# številu `n` vsaka števka pojavi kvečjemu enkrat:
+# 
+#     >>> ali_ima_enkratne_stevke(28537)
+#     True
+#     >>> ali_ima_enkratne_stevke(80085)
+#     False
 # =============================================================================
-def je_veljaven_datum(dan, mesec, leto):
-    return 1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+def ali_ima_enkratne_stevke(n):
+    if n < 10:
+        return True
+    stevka = n % 10
+    ostanek = n // 10
+    if kolikokrat_se_pojavi_stevka(stevka, ostanek) > 0:
+        return False
+    else:
+        return ali_ima_enkratne_stevke(ostanek)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,45 +595,31 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjd9:1j43Qh:HT58ujc9tpcKpGq_zH5HKVIIZJ8'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0IjoyMDAyNX0:1j6KvJ:y0bqOSjSGTgmGagkNg1wHw2lnhA'
         try:
-            Check.equal('je_prestopno(2016)', True)
-            Check.equal('je_prestopno(2015)', False)
-            Check.equal('je_prestopno(2000)', True)
-            Check.equal('je_prestopno(1900)', False)
-            for leto in range(1950, 2050):
-                Check.secret(je_prestopno(leto), leto)
+            Check.equal('kolikokrat_se_pojavi_stevka(5, 294535)', 2)
+            Check.equal('kolikokrat_se_pojavi_stevka(1, 1)', 1)
+            Check.equal('kolikokrat_se_pojavi_stevka(3, 33330)', 4)
+            Check.equal('kolikokrat_se_pojavi_stevka(7, 0)', 0) and \
+            Check.equal('kolikokrat_se_pojavi_stevka(4, 2)', 0) and \
+            Check.equal('kolikokrat_se_pojavi_stevka(0, 0)', 1) and \
+            Check.equal('kolikokrat_se_pojavi_stevka(2, 2943587112223824212)', 7)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjh9:1j43Qh:YUbReCcWYb8o7YakGBOSFOlqi1A'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0IjoyMDAyNn0:1j6KvJ:gaQKTYR-TpW0-Owub9w8CiKyKSY'
         try:
-            Check.equal('stevilo_dni(2, 2016)', 29)
-            Check.equal('stevilo_dni(3, 2011)', 31)
-            Check.equal('stevilo_dni(2, 2011)', 28)
-            Check.equal('stevilo_dni(4, 2011)', 30)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 13):
-                    Check.secret(stevilo_dni(mesec, leto), (mesec, leto))
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjl9:1j43Qh:PyN8fJlzrKmnVpgP2bWLSBhLaV0'
-        try:
-            Check.equal('je_veljaven_datum(29, 2, 2016)', True)
-            Check.equal('je_veljaven_datum(29, 3, 2011)', True)
-            Check.equal('je_veljaven_datum(29, 2, 2011)', False)
-            Check.equal('je_veljaven_datum(35, 4, 2011)', False)
-            Check.equal('je_veljaven_datum(2, 13, 2011)', False)
-            Check.equal('je_veljaven_datum(12, 3, 2016)', True)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 15):
-                    for dan in range(28, 33):
-                        Check.secret(je_veljaven_datum(dan, mesec, leto), (dan, mesec, leto))
+            Check.equal('ali_ima_enkratne_stevke(28537)', True)
+            Check.equal('ali_ima_enkratne_stevke(80085)', False)
+            Check.equal('ali_ima_enkratne_stevke(0)', True)
+            Check.equal('ali_ima_enkratne_stevke(123456789)', True) and \
+            Check.equal('ali_ima_enkratne_stevke(3204780)', False) and \
+            Check.equal('ali_ima_enkratne_stevke(111)', False) and \
+            Check.equal('ali_ima_enkratne_stevke(100)', False) and \
+            Check.equal('ali_ima_enkratne_stevke(9872364)', True) and \
+            Check.equal('ali_ima_enkratne_stevke(20837498)', False)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

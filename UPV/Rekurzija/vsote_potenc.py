@@ -1,33 +1,43 @@
 # =============================================================================
-# Datumi
-# =====================================================================@000927=
+# Vsote potenc
+# =====================================================================@000953=
 # 1. podnaloga
-# Sestavite funkcijo `je_prestopno(leto)`, ki vrne `True`, kadar je `leto`
-# prestopno, in `False`, kadar ni.
+# Sestavite funkcijo `vsota_prvih(n)`, ki vrne vsoto prvih `n` naravnih števil.
 # =============================================================================
-def je_prestopno(leto):
-    return (leto % 4 == 0 and leto % 100 != 0) or leto % 400 == 0
-
-# =====================================================================@000928=
+def vsota_prvih(n):
+    return n * (n + 1) // 2
+# =====================================================================@000954=
 # 2. podnaloga
-# Sestavite funkcijo `stevilo_dni(mesec, leto)`, ki vrne število dni danega
-# meseca (podanega s številom med 1 in 12) v danem letu.
+# Sestavite funkcijo `vsota_prvih_kvadratov(n)`, ki vrne vsoto kvadratov
+# prvih `n` naravnih števil.
 # =============================================================================
-def stevilo_dni(mesec, leto):
-    dnevi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mesec-1]
-    if mesec == 2 and je_prestopno(leto):
-        return dnevi + 1
+def vsota_prvih_kvadratov(n):
+    if n == 1:
+        return 1
     else:
-        return dnevi
-# =====================================================================@000929=
+        return n ** 2 + vsota_prvih_kvadratov(n-1)
+# =====================================================================@000955=
 # 3. podnaloga
-# Sestavite funkcijo `je_veljaven_datum(dan, mesec, leto)`, ki vrne `True`
-# natanko tedaj, kadar `dan`, `mesec` in `leto` določajo veljaven datum
-# (torej `mesec` mora biti število med 1 in 12, `dan` pa mora ustrezati dnevu
-# v tem mesecu).
+# Sestavite funkcijo `vsota_prvih_potenc(n, k)`, ki vrne vsoto `k`-tih potenc
+# prvih `n` naravnih števil. Argument `k` naj bo neobvezen in naj ima privzeto
+# vrednost `1`.
 # =============================================================================
-def je_veljaven_datum(dan, mesec, leto):
-    return 1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+def vsota_prvih_potenc(n, k=1):
+    if n == 1:
+        return 1
+    else:
+        return n ** k + vsota_prvih_potenc(n-1, k)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,45 +586,41 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjd9:1j43Qh:HT58ujc9tpcKpGq_zH5HKVIIZJ8'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTN9:1j6KMe:jevDV0gIYOUuQg8Yw8xWSe5sofQ'
         try:
-            Check.equal('je_prestopno(2016)', True)
-            Check.equal('je_prestopno(2015)', False)
-            Check.equal('je_prestopno(2000)', True)
-            Check.equal('je_prestopno(1900)', False)
-            for leto in range(1950, 2050):
-                Check.secret(je_prestopno(leto), leto)
+            Check.equal('vsota_prvih(0)', 0)
+            Check.equal('vsota_prvih(3)', 6)
+            Check.equal('vsota_prvih(5)', 15)
+            Check.equal('vsota_prvih(36)', 666)
+            if type(vsota_prvih(5)) != int:
+                Check.error('Funkcija vsota_prvih ne vrne celega števila.')
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjh9:1j43Qh:YUbReCcWYb8o7YakGBOSFOlqi1A'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTR9:1j6KMe:u3JFuM1_6TMrxHxCtDLdicTIaKo'
         try:
-            Check.equal('stevilo_dni(2, 2016)', 29)
-            Check.equal('stevilo_dni(3, 2011)', 31)
-            Check.equal('stevilo_dni(2, 2011)', 28)
-            Check.equal('stevilo_dni(4, 2011)', 30)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 13):
-                    Check.secret(stevilo_dni(mesec, leto), (mesec, leto))
+            Check.equal('vsota_prvih_kvadratov(3)', 14)
+            Check.equal('vsota_prvih_kvadratov(5)', 55)
+            Check.equal('vsota_prvih_kvadratov(36)', 16206)
+            if type(vsota_prvih_kvadratov(5)) != int:
+                Check.error('Funkcija vsota_prvih ne vrne celega števila.')
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5Mjl9:1j43Qh:PyN8fJlzrKmnVpgP2bWLSBhLaV0'
+        Check.current_part['token'] = 'eyJ1c2VyIjo1MjcxLCJwYXJ0Ijo5NTV9:1j6KMe:hZ6AdmIjHODhMd3RgOxUrlQXkzI'
         try:
-            Check.equal('je_veljaven_datum(29, 2, 2016)', True)
-            Check.equal('je_veljaven_datum(29, 3, 2011)', True)
-            Check.equal('je_veljaven_datum(29, 2, 2011)', False)
-            Check.equal('je_veljaven_datum(35, 4, 2011)', False)
-            Check.equal('je_veljaven_datum(2, 13, 2011)', False)
-            Check.equal('je_veljaven_datum(12, 3, 2016)', True)
-            for leto in range(1999, 2017):
-                for mesec in range(1, 15):
-                    for dan in range(28, 33):
-                        Check.secret(je_veljaven_datum(dan, mesec, leto), (dan, mesec, leto))
+            try:
+                Check.equal('vsota_prvih_potenc(3)', 6)
+                Check.equal('vsota_prvih_potenc(5, k=2)', 55)
+                Check.equal('vsota_prvih_potenc(36, k=3)', 443556)
+                if type(vsota_prvih_potenc(5)) != int:
+                    Check.error('Funkcija vsota_prvih_potenc ne vrne celega števila.')
+            except:
+                Check.error('Funkcija vsota_prvih_potenc ne deluje pravilno.\nAli je k nastavljen kot neobvezen argument?')
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
