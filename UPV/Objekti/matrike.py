@@ -12,10 +12,7 @@
 #     [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 # =============================================================================
 def identiteta(n):
-    matrika = [[0] * n for _ in range(n)]
-    for i in range(n):
-        matrika[i][i] = 1
-    return matrika
+    return [[int(i == j) for i in range(n)] for j in range(n)]
 # =====================================================================@020211=
 # 2. podnaloga
 # Sestavite funkcijo `sled_matrike`, ki izračuna sled oz. vsoto diagonalnih
